@@ -7,22 +7,41 @@
 :root {
     --columns: 7;
     --rows: 6;
-    --cell-size: 40px
+    --cell-size: 50px
+}
+
+header{ 
+    font-style: italic;
+    text-decoration: underline overline darkblue;
+}
+
+header>h1 {
+    font-size: 3rem;
+}
+
+header, div>h4 {
+    margin: 10px;
+    color: darkblue;
+    text-align: center;
 }
 
 .tab-game {
+    margin: auto;
+    border-collapse: separate;
+    border-spacing: 5px;
     border: 2px solid black;
-    /* width: calc(var(--columns) * var(--cell-size));
-    height: calc(var(--rows) * var(--cell-size)); */
-    background-color: lightblue;
+    width: calc(var(--columns) * var(--cell-size));
+    height: calc(var(--rows) * var(--cell-size));
+    background-color: blue;
 }
 
-
-
 .cell {
-    width: var(--cell-size);
-    height: var(--cell-size);
     border-radius: 50%;
     border: 1px solid black;
     background-color: white;
+}
+
+.row:first-of-type>.cell:hover {
+    cursor: pointer;
+    background-color: rgb(86, 193, 228);
 }
