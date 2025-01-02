@@ -1,0 +1,28 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --columns: 7;
+    --rows: 6;
+    --cell-size: 40px
+}
+
+.tab-game {
+    border: 2px solid black;
+    /* width: calc(var(--columns) * var(--cell-size));
+    height: calc(var(--rows) * var(--cell-size)); */
+    background-color: lightblue;
+}
+
+
+
+.cell {
+    width: var(--cell-size);
+    height: var(--cell-size);
+    border-radius: 50%;
+    border: 1px solid black;
+    background-color: white;
+}
