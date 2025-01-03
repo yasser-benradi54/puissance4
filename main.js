@@ -3,7 +3,7 @@
 const ROWS = 6;
 const COLS = 7;
 let tourPlayer = 1;
-const timerDuration = 30;
+const timerDuration = 15;
 let plaDeJeu = [];
 let timerInterval;
 let remainingTime = timerDuration;
