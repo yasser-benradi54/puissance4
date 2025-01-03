@@ -81,52 +81,57 @@ function findEmptyCell(col) {
   return -1;
 }
 
-// Placer un jeton
-function placePiece(col) {
-  const row = findEmptyCell(col);
-  if (row === -1) return;
+// cette partie je l'ai fait avec claude (hassan)
+  // Placer un jeton
+  function placePiece(col) {
+    // trouver la premier cellule vide
+    const row = findEmptyCell(col);
+    if (row === -1) {
+      return;
+  }
+  // placer le jeton et mettre à jour l'affichage
+    plaDeJeu[row][col] =  tourPlayer;
+    const cell = table.rows[row].cells[col];
+    cell.style.backgroundColor =  tourPlayer === 1 ? 'red' : 'yellow';
+   // Vérifier victoire ou match nul
+  const gameOver = checkWin(row, col) || 
+  plaDeJeu.every(row => row.every(cell => cell !== 0));
 
-  plaDeJeu[row][col] = tourPlayer;
-  const cell = table.rows[row].cells[col];
+  if (gameOver) {
+      afficherVictoire(checkWin(row, col));
+  return;
+}
 
-  // Mise à jour visuelle
-  cell.style.backgroundColor = tourPlayer === 1 ? "red" : "yellow";
+    // Changement de joueur
+    tourPlayer =  tourPlayer === 1 ? 2 : 1;
+    switchPlayer();
+    
+}
 
-      // Vérification de la victoire
-      if (checkWin(row, col)) {
-        mainDisplaying.innerHTML = "";
-        const resultText = document.createElement("h3");
-        resultText.innerHTML = `Le joueur ${ tourPlayer} a gagné ! &#127881`;
-        resultText.classList.add("result-style");
-        mainDisplaying.appendChild(resultText);
-        return;
-      }
-
-      // Vérification du match nul
-      if (plaDeJeu.every(row => row.every(cell => cell !== 0))) {
-        mainDisplaying.innerHTML = "";
-        const resultText = document.createElement("h3");
-        resultText.textContent = `Match Nul!`;
-        resultText.classList.add("result-style");
-        mainDisplaying.appendChild(resultText);;
-        return;
-      }
-
-  // Changement de joueur
-  tourPlayer = tourPlayer === 1 ? 2 : 1;
-  switchPlayer();
+function afficherVictoire(isWin) {
+  mainDisplaying.innerHTML = "";
+  const resultText = document.createElement("h3");
+  
+  if (isWin) {
+      resultText.textContent = `Le joueur ${tourPlayer} a gagné !`;
+  } else {
+      resultText.textContent = "Match Nul!";
+  }
+  
+  mainDisplaying.appendChild(resultText);
 }
 
 // Ajout des événements click sur les colonnes
 for (let col = 0; col < COLS; col++) {
-  for (let row = 0; row < ROWS; row++) {
-    table.rows[row].cells[col].addEventListener("click", () => {
-      placePiece(col);
-    });
-  }
+   
+    for (let row = 0; row < ROWS; row++) {
+        table.rows[row].cells[col].addEventListener('click', () => {
+            placePiece(col);
+        });
+    }
 }
 
-  // Initialisation de l'affichage du joueur
-  switchPlayer();
+// Initialisation de l'affichage du joueur
+switchPlayer();
 
   btnRestart.addEventListener("click",() => window.location.reload())
