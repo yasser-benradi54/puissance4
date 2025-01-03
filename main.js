@@ -1,13 +1,18 @@
-/**
- * bouton pour recommencer
- * (timer pour chaque joueur?)
- */
 
 // Initialisation des variables
 const ROWS = 6;
 const COLS = 7;
 let tourPlayer = 1;
+const timerDuration = 30;
 let plaDeJeu = [];
+let timerInterval;
+let remainingTime = timerDuration;
+
+const table = document.querySelector('table');
+const playerDisplay = document.querySelector('h3');
+const mainDisplaying = document.getElementById("main");
+const btnRestart = document.getElementById('restart');
+const timerDisplayer = document.getElementById('timerDisplay')
 
 for (let i = 0; i < ROWS; i++) {
   plaDeJeu[i] = [];
@@ -15,15 +20,11 @@ for (let i = 0; i < ROWS; i++) {
     plaDeJeu[i][j] = 0;
   }
 }
- 
-  const table = document.querySelector('table');
-  const playerDisplay = document.querySelector('h3');
-  const mainDisplaying = document.getElementById("main");
-  const btnRestart = document.getElementById('restart');
 
   // switch de joueur a chaque click
   function switchPlayer() {
       playerDisplay.textContent = `Joueur : ${tourPlayer}`;
+      startTimer();
   }
 
 // Vérification de la victoire
@@ -104,6 +105,7 @@ function findEmptyCell(col) {
 
     // Changement de joueur
     tourPlayer =  tourPlayer === 1 ? 2 : 1;
+    clearInterval(timerInterval);
     switchPlayer();
     
 }
@@ -114,8 +116,10 @@ function afficherVictoire(isWin) {
   
   if (isWin) {
       resultText.textContent = `Le joueur ${tourPlayer} a gagné !`;
+      clearInterval(timerInterval);
   } else {
       resultText.textContent = "Match Nul!";
+      clearInterval(timerInterval);
   }
   
   mainDisplaying.appendChild(resultText);
@@ -131,7 +135,24 @@ for (let col = 0; col < COLS; col++) {
     }
 }
 
+// fonction qui gere le timer
+function startTimer() {
+    remainingTime = timerDuration;
+    clearInterval(timerInterval); 
+    timerInterval = setInterval(() => {
+        remainingTime--;
+        timerDisplayer.textContent = `Temps restant: ${remainingTime} secondes`;
+        if (remainingTime <= 0) {
+            clearInterval(timerInterval);
+            timerDisplayer.textContent = "Temps écoulé!";
+            // Changement de joueur automatique si le temps est écoulé
+            tourPlayer = tourPlayer === 1 ? 2 : 1;
+            switchPlayer();
+        }
+    }, 1000);
+}
+
 // Initialisation de l'affichage du joueur
 switchPlayer();
 
-  btnRestart.addEventListener("click",() => window.location.reload())
+btnRestart.addEventListener("click",() => window.location.reload())
