@@ -12,7 +12,9 @@ const table = document.querySelector('table');
 const playerDisplay = document.querySelector('h3');
 const mainDisplaying = document.getElementById("main");
 const btnRestart = document.getElementById('restart');
-const timerDisplayer = document.getElementById('timerDisplay')
+const divRestart = document.getElementsByClassName('btn-restart')[0];
+const timerDisplayer = document.getElementById('timerDisplay');
+const btnStart = document.getElementById('startButton');
 
 for (let i = 0; i < ROWS; i++) {
   plaDeJeu[i] = [];
@@ -155,4 +157,12 @@ function startTimer() {
 // Initialisation de l'affichage du joueur
 switchPlayer();
 
+function gameStart() {
+    btnStart.style.display = "none";
+    mainDisplaying.style.display = "block";
+    divRestart.style.display = "block";
+    switchPlayer();
+}
+
+btnStart.addEventListener('click', gameStart)
 btnRestart.addEventListener("click",() => window.location.reload())

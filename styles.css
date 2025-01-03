@@ -25,6 +25,10 @@ header, div>h3, #main {
     text-align: center;
 }
 
+#main, .btn-restart {
+    display: none;
+}
+
 .tab-game {
     margin: auto;
     border-collapse: separate;
@@ -50,7 +54,11 @@ header, div>h3, #main {
     text-align: center;
 }
 
-#restart {
+#startButton {
+    margin: 10px;
+}
+
+#restart, #startButton {
     box-shadow: 0px 0px 0px 2px #9fb4f2;
 	background:linear-gradient(to bottom, #005eff 5%, #275fa3 100%);
 	background-color:#005eff;
@@ -66,7 +74,7 @@ header, div>h3, #main {
 	text-shadow:0px 1px 0px #283966;
 }
 
-#restart:hover {
+#restart:hover, #startButton:hover {
     background:linear-gradient(to bottom, #275fa3 5%, #005eff 100%);
 	background-color:#275fa3;
 }
