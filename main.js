@@ -17,8 +17,9 @@ for (let i = 0; i < ROWS; i++) {
 }
  
   const table = document.querySelector('table');
-  const playerDisplay = document.querySelector('h4');
+  const playerDisplay = document.querySelector('h3');
   const mainDisplaying = document.getElementById("main");
+  const btnRestart = document.getElementById('restart');
 
   // switch de joueur a chaque click
   function switchPlayer() {
@@ -84,7 +85,8 @@ for (let i = 0; i < ROWS; i++) {
       if (checkWin(row, col)) {
         mainDisplaying.innerHTML = "";
         const resultText = document.createElement("h3");
-        resultText.textContent = `Le joueur ${ tourPlayer} a gagné !`;
+        resultText.innerHTML = `Le joueur ${ tourPlayer} a gagné ! &#127881`;
+        resultText.classList.add("result-style");
         mainDisplaying.appendChild(resultText);
         return;
       }
@@ -94,6 +96,7 @@ for (let i = 0; i < ROWS; i++) {
         mainDisplaying.innerHTML = "";
         const resultText = document.createElement("h3");
         resultText.textContent = `Match Nul!`;
+        resultText.classList.add("result-style");
         mainDisplaying.appendChild(resultText);;
         return;
       }
@@ -116,3 +119,5 @@ for (let i = 0; i < ROWS; i++) {
 
   // Initialisation de l'affichage du joueur
   switchPlayer();
+
+  btnRestart.addEventListener("click",() => window.location.reload())
