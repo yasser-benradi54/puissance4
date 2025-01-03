@@ -1,13 +1,8 @@
 /**
- * switch de joueur a chaque click
- * en fonction du joueur ajout couleur (rouge ou jaune) bg dans la derniere .cell vide
- * différencier les actions des 2 joueurs et leur couleur
- * parcourir le tableau a chaque tour pour verifier les couleurs
- * dans tout les drections (diagonales, horizontale et verticale) si result >= 4 joueur corresdant gagne
- * 
- * (bouton pour recommencer?)
+ * bouton pour recommencer
  * (timer pour chaque joueur?)
  */
+
   // Initialisation des variables
   const ROWS = 6;
   const COLS = 7;
@@ -23,10 +18,13 @@ for (let i = 0; i < ROWS; i++) {
  
   const table = document.querySelector('table');
   const playerDisplay = document.querySelector('h4');
+  const mainDisplaying = document.getElementById("main");
+
   // switch de joueur a chaque click
   function switchPlayer() {
       playerDisplay.textContent = `Joueur : ${tourPlayer}`;
   }
+
   // Vérification  la victoire
   function checkWin(row, col) {
       // Directions : horizontal, vertical, diagonale droite, diagonale gauche
@@ -67,7 +65,8 @@ for (let i = 0; i < ROWS; i++) {
       }
       return -1;
   }
-// cette partie je l'ai fait avec claude
+
+// cette partie je l'ai fait avec claude (hassan)
   // Placer un jeton
   function placePiece(col) {
       
@@ -83,15 +82,20 @@ for (let i = 0; i < ROWS; i++) {
 
       // Vérification de la victoire
       if (checkWin(row, col)) {
-       
-          alert(`Le joueur ${ tourPlayer} a gagné !`);
-          return;
+        mainDisplaying.innerHTML = "";
+        const resultText = document.createElement("h3");
+        resultText.textContent = `Le joueur ${ tourPlayer} a gagné !`;
+        mainDisplaying.appendChild(resultText);
+        return;
       }
 
       // Vérification du match nul
       if (plaDeJeu.every(row => row.every(cell => cell !== 0))) {
-          alert("Match nul !");
-          return;
+        mainDisplaying.innerHTML = "";
+        const resultText = document.createElement("h3");
+        resultText.textContent = `Match Nul!`;
+        mainDisplaying.appendChild(resultText);;
+        return;
       }
 
       // Changement de joueur
@@ -103,12 +107,12 @@ for (let i = 0; i < ROWS; i++) {
   // Ajout des événements click sur les colonnes
   for (let col = 0; col < COLS; col++) {
      
-      
       for (let row = 0; row < ROWS; row++) {
           table.rows[row].cells[col].addEventListener('click', () => {
               placePiece(col);
           });
       }
   }
+
   // Initialisation de l'affichage du joueur
   switchPlayer();

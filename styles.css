@@ -41,7 +41,7 @@ header, div>h4 {
     background-color: white;
 }
 
-.row:first-of-type>.cell:hover {
+.row>.cell:hover {
     cursor: pointer;
     background-color: rgb(86, 193, 228);
 }
